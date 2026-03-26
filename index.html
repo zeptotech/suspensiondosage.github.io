@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="script.js" defer></script>
-
 </head>
 <body>
 
@@ -16,7 +15,7 @@
   <p>Liquid Suspension · mg/kg/day Reference</p>
 </header>
 
-<div style="max-width:680px;margin:0 auto;padding:0 20px;">
+<div style="max-width:900px;margin:0 auto;padding:0 20px;">
   <div class="disclaimer">
     ⚠️ <strong>For reference only.</strong> Always verify calculations independently. Consult current clinical guidelines and prescriber judgment for all dosing decisions.
   </div>
@@ -36,7 +35,7 @@
 
     <div class="card-body">
 
-      <!-- Left panel: Forward calculator (dose given → mg/kg/day) -->
+      <!-- Left panel: Forward calculator -->
       <div class="calc-section">
         <div class="section-title">Dose → mg/kg/day</div>
 
@@ -65,7 +64,7 @@
 
         <div class="field-group">
           <label>Concentration</label>
-          <div class="unit-toggle">
+          <div class="unit-toggle sm full">
             <button class="active" id="amox-conc-250" onclick="setAmoxConc('fwd', 50)">250 mg/5mL</button>
             <button id="amox-conc-125" onclick="setAmoxConc('fwd', 25)">125 mg/5mL</button>
           </div>
@@ -74,7 +73,7 @@
 
         <div class="field-group">
           <label>Frequency</label>
-          <div class="unit-toggle">
+          <div class="unit-toggle sm full">
             <button class="active" id="amox-freq-2" onclick="setFreq('amox',2)">BID</button>
             <button id="amox-freq-3" onclick="setFreq('amox',3)">TID</button>
           </div>
@@ -89,7 +88,7 @@
         </div>
       </div>
 
-      <!-- Right panel: Reverse calculator (target mg/kg/day → dose) -->
+      <!-- Right panel: Reverse calculator -->
       <div class="calc-section">
         <div class="section-title">mg/kg/day → Dose</div>
 
@@ -108,22 +107,29 @@
         <div class="field-group">
           <label>Target (mg/kg/day)</label>
           <input type="number" id="amox-rev-target" placeholder="e.g. 40" min="0" step="1">
-          <div class="hint">Typical range: 40–90 mg/kg/day</div>
         </div>
 
         <div class="field-group">
           <label>Concentration</label>
-          <div class="unit-toggle">
+          <div class="unit-toggle sm full">
             <button class="active" id="amox-rev-conc-250" onclick="setAmoxConc('rev', 50)">250 mg/5mL</button>
             <button id="amox-rev-conc-125" onclick="setAmoxConc('rev', 25)">125 mg/5mL</button>
           </div>
           <div class="hint" id="amox-rev-conc-info">= 50 mg/mL</div>
         </div>
 
+        <div class="field-group">
+          <label>Frequency</label>
+          <div class="unit-toggle sm full">
+            <button class="active" id="amox-rev-freq-2" onclick="setRevFreq('amox',2)">BID</button>
+            <button id="amox-rev-freq-3" onclick="setRevFreq('amox',3)">TID</button>
+          </div>
+        </div>
+
         <button class="calc-btn outline" onclick="calcReverse('amox')">Calculate Dose</button>
 
         <div class="result-box" id="amox-rev-result">
-          <div class="result-label">Per-dose · BID &amp; TID</div>
+          <div class="result-label" id="amox-rev-result-label">Per-dose · BID</div>
           <div id="amox-rev-rows"></div>
           <div class="result-breakdown" id="amox-rev-breakdown"></div>
         </div>
@@ -181,7 +187,7 @@
 
         <div class="field-group">
           <label>Frequency</label>
-          <div class="unit-toggle">
+          <div class="unit-toggle sm full">
             <button class="active" id="ceph-freq-2" onclick="setFreq('ceph',2)">BID</button>
             <button id="ceph-freq-3" onclick="setFreq('ceph',3)">TID</button>
             <button id="ceph-freq-4" onclick="setFreq('ceph',4)">QID</button>
@@ -216,7 +222,6 @@
         <div class="field-group">
           <label>Target (mg/kg/day)</label>
           <input type="number" id="ceph-rev-target" placeholder="e.g. 50" min="0" step="1">
-          <div class="hint">Typical range: 25–100 mg/kg/day</div>
         </div>
 
         <div class="field-group">
@@ -225,10 +230,19 @@
           <div class="hint" id="ceph-rev-conc-info">250 mg/5 mL = 50 mg/mL</div>
         </div>
 
+        <div class="field-group">
+          <label>Frequency</label>
+          <div class="unit-toggle sm full">
+            <button class="active" id="ceph-rev-freq-2" onclick="setRevFreq('ceph',2)">BID</button>
+            <button id="ceph-rev-freq-3" onclick="setRevFreq('ceph',3)">TID</button>
+            <button id="ceph-rev-freq-4" onclick="setRevFreq('ceph',4)">QID</button>
+          </div>
+        </div>
+
         <button class="calc-btn outline" onclick="calcReverse('ceph')">Calculate Dose</button>
 
         <div class="result-box" id="ceph-rev-result">
-          <div class="result-label">Per-dose · BID, TID &amp; QID</div>
+          <div class="result-label" id="ceph-rev-result-label">Per-dose · BID</div>
           <div id="ceph-rev-rows"></div>
           <div class="result-breakdown" id="ceph-rev-breakdown"></div>
         </div>

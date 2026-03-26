@@ -1,18 +1,16 @@
-
-
-  /* ── Design tokens ─────────────────────────────────────────
+/* ── Design tokens ─────────────────────────────────────────
      All colours and shadows are defined here as CSS variables.
      Amoxicillin uses green, Cephalexin uses purple.
   ─────────────────────────────────────────────────────────── */
   :root {
     --bg: #f4f1eb;
     --panel: #ffffff;
-    --amox-accent: #2e7d6e;
-    --amox-light:  #e6f4f1;
-    --amox-mid:    #a8d5cc;
-    --ceph-accent: #5b4fa8;
-    --ceph-light:  #eeecf8;
-    --ceph-mid:    #bdb7e0;
+    --amox-accent: #b5366f;
+    --amox-light:  #fdf0f6;
+    --amox-mid:    #f2b8d4;
+    --ceph-accent: #e65100;
+    --ceph-light:  #fff3e0;
+    --ceph-mid:    #ffcc80;
     --text:   #1a1a2e;
     --muted:  #6b6b80;
     --border: #ddd8cc;
@@ -41,13 +39,12 @@
     position: relative;
     overflow: hidden;
   }
-  /* Decorative radial glows in the header corners */
   header::before {
     content: '';
     position: absolute;
     top: -60px; left: -60px;
     width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(46,125,110,0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(181,54,111,0.3) 0%, transparent 70%);
     pointer-events: none;
   }
   header::after {
@@ -55,7 +52,7 @@
     position: absolute;
     bottom: -60px; right: -60px;
     width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(91,79,168,0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(230,81,0,0.3) 0%, transparent 70%);
     pointer-events: none;
   }
   header h1 {
@@ -78,7 +75,7 @@
     background: #fff8e6;
     border-left: 4px solid #e6a817;
     margin: 28px auto 0;
-    max-width: 680px;
+    max-width: 900px;
     padding: 11px 16px;
     font-size: 0.77rem;
     color: #7a5c10;
@@ -90,7 +87,7 @@
     display: flex;
     flex-direction: column;
     gap: 36px;
-    max-width: 680px;
+    max-width: 900px;
     margin: 32px auto 0;
     padding: 0 20px;
   }
@@ -177,7 +174,7 @@
   .input-row {
     display: flex;
     gap: 7px;
-    align-items: stretch; /* make toggle match input height */
+    align-items: stretch;
   }
 
   input[type="number"] {
@@ -192,15 +189,14 @@
     color: var(--text);
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
-    -moz-appearance: textfield; /* hide Firefox spinner */
+    -moz-appearance: textfield;
   }
-  /* Hide browser number spinners */
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
-  .card.amox input[type="number"]:focus { border-color: var(--amox-accent); box-shadow: 0 0 0 3px rgba(46,125,110,0.12); }
-  .card.ceph input[type="number"]:focus { border-color: var(--ceph-accent); box-shadow: 0 0 0 3px rgba(91,79,168,0.12); }
+  .card.amox input[type="number"]:focus { border-color: var(--amox-accent); box-shadow: 0 0 0 3px rgba(181,54,111,0.12); }
+  .card.ceph input[type="number"]:focus { border-color: var(--ceph-accent); box-shadow: 0 0 0 3px rgba(230,81,0,0.12); }
 
-  /* ── Toggle button groups (mL/mg, BID/TID, kg/lb) ────────── */
+  /* ── Toggle button groups ────────────────────────────────── */
   .unit-toggle {
     display: flex;
     border: 1.5px solid var(--border);
@@ -219,13 +215,28 @@
     color: var(--muted);
     transition: background 0.15s, color 0.15s;
     white-space: nowrap;
-    /* Ensure buttons fill the toggle group height */
     display: flex;
     align-items: center;
   }
   .unit-toggle button:not(:last-child) { border-right: 1.5px solid var(--border); }
   .card.amox .unit-toggle button.active { background: var(--amox-accent); color: white; }
   .card.ceph .unit-toggle button.active { background: var(--ceph-accent); color: white; }
+
+  /* Smaller toggles for concentration and frequency rows */
+  .unit-toggle.sm button {
+    padding: 5px 9px;
+    font-size: 0.68rem;
+  }
+
+  /* Full-width toggle that fills the field width */
+  .unit-toggle.full {
+    width: 100%;
+    flex-shrink: 1;
+  }
+  .unit-toggle.full button {
+    flex: 1;
+    justify-content: center;
+  }
 
   /* Small helper text below inputs */
   .hint {
@@ -255,17 +266,20 @@
   .card.amox .calc-btn { background: var(--amox-accent); color: white; }
   .card.ceph .calc-btn { background: var(--ceph-accent); color: white; }
 
-  /* Outlined variant used for the reverse calculator */
-  .calc-btn.outline {
-    background: transparent;
-    border: 2px solid;
+  .card.amox .calc-btn.outline {
+    background: transparent !important;
+    border: 2px solid var(--amox-accent) !important;
+    color: var(--amox-accent) !important;
   }
-  .card.amox .calc-btn.outline { color: var(--amox-accent); border-color: var(--amox-accent); }
-  .card.ceph .calc-btn.outline { color: var(--ceph-accent); border-color: var(--ceph-accent); }
-  .card.amox .calc-btn.outline:hover { background: var(--amox-light); }
-  .card.ceph .calc-btn.outline:hover { background: var(--ceph-light); }
+  .card.ceph .calc-btn.outline {
+    background: transparent !important;
+    border: 2px solid var(--ceph-accent) !important;
+    color: var(--ceph-accent) !important;
+  }
+  .card.amox .calc-btn.outline:hover { background: var(--amox-light) !important; }
+  .card.ceph .calc-btn.outline:hover { background: var(--ceph-light) !important; }
 
-  /* ── Result panels (hidden until a calculation runs) ─────── */
+  /* ── Result panels ───────────────────────────────────────── */
   .result-box {
     margin-top: 14px;
     border-radius: 11px;
@@ -276,7 +290,6 @@
   .result-box.show { display: block; }
   .card.amox .result-box { background: var(--amox-light); border: 1.5px solid var(--amox-mid); }
   .card.ceph .result-box { background: var(--ceph-light); border: 1.5px solid var(--ceph-mid); }
-  /* Error state overrides the colour */
   .result-box.error-box { background: #fdecea !important; border-color: #f5b7b1 !important; }
 
   .result-label {
@@ -307,7 +320,7 @@
     line-height: 1.75;
   }
 
-  /* ── Reverse calc: per-frequency result rows ─────────────── */
+  /* ── Reverse calc result rows ────────────────────────────── */
   .rev-row {
     display: flex;
     justify-content: space-between;
@@ -322,22 +335,10 @@
   .card.amox .rev-row-value { color: var(--amox-accent); }
   .card.ceph .rev-row-value { color: var(--ceph-accent); }
 
-  /* ── Range badge (within / below / above) ────────────────── */
-  .range-indicator {
-    display: inline-block;
-    font-size: 0.66rem;
-    padding: 2px 8px;
-    border-radius: 20px;
-    margin-top: 5px;
-    font-family: 'DM Mono', monospace;
-    font-weight: 500;
-  }
-  .range-ok   { background: #d4edda; color: #1a6b2e; }
-  .range-low  { background: #fff3cd; color: #856404; }
-  .range-high { background: #f8d7da; color: #721c24; }
 
-  /* ── Responsive: stack columns on narrow screens ─────────── */
-  @media (max-width: 540px) {
+
+  /* ── Responsive ──────────────────────────────────────────── */
+  @media (max-width: 640px) {
     .card-body { grid-template-columns: 1fr; }
     .calc-section + .calc-section { border-left: none; border-top: 2px dashed var(--border); }
   }
